@@ -20,6 +20,7 @@ class ShowDevice(CreateDevice):
     id:int 
     registered_time: datetime
 
+
     
 
 
