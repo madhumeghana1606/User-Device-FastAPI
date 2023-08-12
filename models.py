@@ -15,7 +15,7 @@ class Device(Base):
     id=Column(Integer,primary_key=True,index=True)
     type=Column(String,nullable=False)
     active_status=Column(Boolean,default=True)
-    registered_time=Column(DateTime,default=datetime.now())
+    registered_time=Column(DateTime,default=datetime.utcnow)
     user_id=Column(Integer,ForeignKey("users.id"))
     users=relationship("User",secondary="user_devices",back_populates="devices")
 

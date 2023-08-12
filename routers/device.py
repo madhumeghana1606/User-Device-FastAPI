@@ -1,7 +1,8 @@
-from fastapi import APIRouter,Depends,HTTPException
+from fastapi import APIRouter,Depends,HTTPException,Query
 import schemas,models
 from typing import List
 from database import get_db
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 router=APIRouter(
@@ -9,8 +10,7 @@ router=APIRouter(
     prefix="/device"
 )
 
-
-
+    
 
 @router.get('',response_model=List[schemas.ShowDevice])
 def get_all(db:Session=Depends(get_db)):
@@ -33,10 +33,6 @@ def show_device(id,db:Session=Depends(get_db)):
         raise HTTPException(status_code=404,detail="device with this id is not found")
     return device
 
-@router.get('/user/{user_id}',response_model=List[schemas.ShowDevice])
-def get_devices_of_specific_user(user_id,db:Session=Depends(get_db)):
-    users=db.query(models.Device).filter(models.Device.user_id==user_id).all()
-    return users
 
 
 
@@ -55,3 +51,4 @@ def update(id,request:schemas.CreateDevice,db:Session=Depends(get_db)):
         raise HTTPException(status_code=404,detail="device with this id is not found")
     db.commit()
     return "Suceessfully updated"
+

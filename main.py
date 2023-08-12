@@ -2,7 +2,7 @@ from fastapi import FastAPI
 import models
 from database import Base,engine
 from sqlalchemy.orm import Session
-from routers import user,device
+from routers import user,device,tasks
 
 app=FastAPI()
 
@@ -11,8 +11,6 @@ models.Base.metadata.create_all(engine)
 
 app.include_router(user.router)
 app.include_router(device.router)
-
-
-
+app.include_router(tasks.router)
 
 

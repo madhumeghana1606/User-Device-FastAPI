@@ -19,11 +19,6 @@ def create_user(request:schemas.User,db:Session=Depends(get_db)):
     db.refresh(user)
     return user
 
-@router.get('/getdevice/{device_id}',response_model=List[schemas.ShowUser])
-def get_users_for_specific_device(device_id,db:Session=Depends(get_db)):
-    devices=db.query(models.User).filter(models.User.device_id==device_id).all()
-    return devices
-
 
 @router.get('',response_model=List[schemas.ShowUser])
 def get_all_users(db:Session=Depends(get_db)):
